@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { resolveWidgetFieldValue } from '@/_helpers/utils';
 import { toast } from 'react-hot-toast';
 // eslint-disable-next-line import/no-unresolved
-import * as XLSX from 'xlsx/xlsx.mjs';
+// import * as XLSX from 'xlsx/xlsx.mjs';
 
 import { useAppInfo } from '@/_stores/appDataStore';
 
@@ -385,11 +385,11 @@ FilePicker.AcceptedFiles = ({ children, width, height }) => {
 
 const processCSV = (str, delimiter = ',') => {
   try {
-    const wb = XLSX.read(str, { type: 'string', raw: true });
-    const wsname = wb.SheetNames[0];
-    const ws = wb.Sheets[wsname];
-    const data = XLSX.utils.sheet_to_json(ws, { delimiter, defval: '' });
-    return data;
+    // const wb = XLSX.read(str, { type: 'string', raw: true });
+    // const wsname = wb.SheetNames[0];
+    // const ws = wb.Sheets[wsname];
+    // const data = XLSX.utils.sheet_to_json(ws, { delimiter, defval: '' });
+    // return data;
   } catch (error) {
     console.log(error);
     handleErrors(error);
@@ -398,12 +398,12 @@ const processCSV = (str, delimiter = ',') => {
 
 const processXls = (str) => {
   try {
-    const wb = XLSX.read(str, { type: 'base64' });
-    const wsname = wb.SheetNames[0];
-    const ws = wb.Sheets[wsname];
-    /* Convert array of arrays */
-    const data = XLSX.utils.sheet_to_json(ws);
-    return data;
+    // const wb = XLSX.read(str, { type: 'base64' });
+    // const wsname = wb.SheetNames[0];
+    // const ws = wb.Sheets[wsname];
+    // /* Convert array of arrays */
+    // const data = XLSX.utils.sheet_to_json(ws);
+    // return data;
   } catch (error) {
     console.log(error);
     handleErrors(error);

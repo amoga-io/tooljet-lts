@@ -12,7 +12,7 @@ import { useEditorStore } from '@/_stores/editorStore';
 import { shallow } from 'zustand/shallow';
 import { useNoOfGrid, useGridStore } from '@/_stores/gridStore';
 import WidgetBox from './WidgetBox';
-import * as Sentry from '@sentry/react';
+// import * as Sentry from '@sentry/react';
 import { findHighestLevelofSelection } from './DragContainer';
 
 function computeWidth(currentLayoutOptions) {
@@ -199,37 +199,37 @@ const DraggableBox = React.memo(
                   showHandle={configWidgetHandlerForModalComponent || isSelectedComponent}
                 />
               )}
-              <Sentry.ErrorBoundary
+              {/* <Sentry.ErrorBoundary
                 fallback={<h2>Something went wrong.</h2>}
                 beforeCapture={(scope) => {
                   scope.setTag('errorType', 'component');
                 }}
-              >
-                <Box
-                  component={component}
-                  id={id}
-                  width={width}
-                  height={layoutData.height - 4}
-                  mode={mode}
-                  changeCanDrag={changeCanDrag}
-                  inCanvas={inCanvas}
-                  paramUpdated={paramUpdated}
-                  onEvent={onEvent}
-                  onComponentClick={onComponentClick}
-                  darkMode={darkMode}
-                  removeComponent={removeComponent}
-                  canvasWidth={canvasWidth}
-                  readOnly={readOnly}
-                  customResolvables={customResolvables}
-                  parentId={parentId}
-                  getContainerProps={getContainerProps}
-                  currentPageId={currentPageId}
-                  onOptionChanged={onComponentOptionChanged}
-                  onOptionsChanged={onComponentOptionsChanged}
-                  isFromSubContainer={isFromSubContainer}
-                  childComponents={childComponents}
-                />
-              </Sentry.ErrorBoundary>
+              > */}
+              <Box
+                component={component}
+                id={id}
+                width={width}
+                height={layoutData.height - 4}
+                mode={mode}
+                changeCanDrag={changeCanDrag}
+                inCanvas={inCanvas}
+                paramUpdated={paramUpdated}
+                onEvent={onEvent}
+                onComponentClick={onComponentClick}
+                darkMode={darkMode}
+                removeComponent={removeComponent}
+                canvasWidth={canvasWidth}
+                readOnly={readOnly}
+                customResolvables={customResolvables}
+                parentId={parentId}
+                getContainerProps={getContainerProps}
+                currentPageId={currentPageId}
+                onOptionChanged={onComponentOptionChanged}
+                onOptionsChanged={onComponentOptionsChanged}
+                isFromSubContainer={isFromSubContainer}
+                childComponents={childComponents}
+              />
+              {/* </Sentry.ErrorBoundary> */}
             </div>
           </div>
         ) : (

@@ -5,8 +5,10 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 require('dotenv').config({ path: '../.env' });
 const hash = require('string-hash');
-const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
+// const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 const fs = require('fs');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const versionPath = path.resolve(__dirname, '.version');
 const version = fs.readFileSync(versionPath, 'utf-8').trim();
 
@@ -38,22 +40,24 @@ const plugins = [
     'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
     'process.env.SERVE_CLIENT': JSON.stringify(process.env.SERVE_CLIENT),
   }),
+  new BundleAnalyzerPlugin()
+
 ];
 
-if (process.env.APM_VENDOR === 'sentry') {
-  plugins.push(
-    // Add Sentry plugin for error and performance monitoring
-    sentryWebpackPlugin({
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      org: process.env.SENTRY_ORG,
-      project: process.env.SENTRY_PROJECT,
-      release: {
-        // The version should be same as what its when we are sending error events
-        name: `tooljet-${version}`,
-      },
-    })
-  );
-}
+// if (process.env.APM_VENDOR === 'sentry') {
+//   plugins.push(
+//     // Add Sentry plugin for error and performance monitoring
+//     sentryWebpackPlugin({
+//       authToken: process.env.SENTRY_AUTH_TOKEN,
+//       org: process.env.SENTRY_ORG,
+//       project: process.env.SENTRY_PROJECT,
+//       release: {
+//         // The version should be same as what its when we are sending error events
+//         name: `tooljet-${version}`,
+//       },
+//     })
+//   );
+// }
 
 module.exports = {
   mode: environment,
@@ -191,7 +195,7 @@ module.exports = {
       SERVER_IP: process.env.SERVER_IP,
       COMMENT_FEATURE_ENABLE: process.env.COMMENT_FEATURE_ENABLE ?? true,
       ENABLE_TOOLJET_DB: process.env.ENABLE_TOOLJET_DB ?? true,
-      ENABLE_MULTIPLAYER_EDITING: true,
+      ENABLE_MULTIPLAYER_EDITING: false,
       ENABLE_MARKETPLACE_FEATURE: process.env.ENABLE_MARKETPLACE_FEATURE ?? true,
       ENABLE_MARKETPLACE_DEV_MODE: process.env.ENABLE_MARKETPLACE_DEV_MODE,
       TOOLJET_MARKETPLACE_URL:

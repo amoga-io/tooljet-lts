@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { resolveWidgetFieldValue } from '@/_helpers/utils';
 
-import * as Icons from '@tabler/icons-react';
+// import * as Icons from '@tabler/icons-react';
 import Loader from '@/ToolJetUI/Loader/Loader';
 import SolidIcon from '@/_ui/Icon/SolidIcons';
 import Label from '@/_ui/Label';
@@ -181,7 +181,7 @@ export const PasswordInput = function PasswordInput({
 
   const iconName = styles.icon; // Replace with the name of the icon you want
   // eslint-disable-next-line import/namespace
-  const IconElement = Icons[iconName] == undefined ? Icons['IconHome2'] : Icons[iconName];
+  // const IconElement = Icons[iconName] == undefined ? Icons['IconHome2'] : Icons[iconName];
   // eslint-disable-next-line import/namespace
 
   useEffect(() => {
@@ -259,7 +259,7 @@ export const PasswordInput = function PasswordInput({
           _width={_width}
           labelWidth={labelWidth}
         />
-        {component?.definition?.styles?.iconVisibility?.value && !isResizing && (
+        {/* {component?.definition?.styles?.iconVisibility?.value && !isResizing && (
           <IconElement
             data-cy={'text-input-icon'}
             style={{
@@ -287,7 +287,7 @@ export const PasswordInput = function PasswordInput({
             }}
             stroke={1.5}
           />
-        )}
+        )} */}
         {!loading && !isResizing && (
           <div
             onClick={() => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import * as Sentry from '@sentry/react';
+// import * as Sentry from '@sentry/react';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -19,11 +19,12 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    return (
-      <Sentry.ErrorBoundary fallback={<h2>{this.props.t('errorBoundary', 'Something went wrong.')}</h2>}>
-        {this.props.children}
-      </Sentry.ErrorBoundary>
-    );
+    return this.props.children;
+    // return (
+    //   <Sentry.ErrorBoundary fallback={<h2>{this.props.t('errorBoundary', 'Something went wrong.')}</h2>}>
+    //     {this.props.children}
+    //   </Sentry.ErrorBoundary>
+    // );
   }
 }
 

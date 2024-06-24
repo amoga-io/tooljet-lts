@@ -872,7 +872,7 @@ class ViewerComponent extends React.Component {
             darkMode={this.props.darkMode}
           />
           <DndProvider backend={HTML5Backend}>
-            {this.props.currentLayout !== 'mobile' && (
+            {/* {this.props.currentLayout !== 'mobile' && (
               <DesktopHeader
                 showHeader={!appDefinition.globalSettings?.hideHeader && isAppLoaded}
                 appName={this.state.app?.name ?? null}
@@ -884,9 +884,9 @@ class ViewerComponent extends React.Component {
                 setAppDefinitionFromVersion={this.setAppDefinitionFromVersion}
                 showViewerNavigation={appDefinition?.showViewerNavigation}
               />
-            )}
+            )} */}
             {/* Render following mobile header only when its in preview mode and not in launched app */}
-            {this.props.currentLayout === 'mobile' && !isMobilePreviewMode && (
+            {/* {this.props.currentLayout === 'mobile' && !isMobilePreviewMode && (
               <MobileHeader
                 showHeader={!appDefinition.globalSettings?.hideHeader && isAppLoaded}
                 appName={this.state.app?.name ?? null}
@@ -898,7 +898,7 @@ class ViewerComponent extends React.Component {
                 setAppDefinitionFromVersion={this.setAppDefinitionFromVersion}
                 showViewerNavigation={appDefinition?.showViewerNavigation}
               />
-            )}
+            )} */}
             <div className="sub-section">
               <div className="main">
                 <div
@@ -988,7 +988,7 @@ class ViewerComponent extends React.Component {
                           </>
                         )}
                       </div>
-                      <div
+                      {/* <div
                         className="powered-with-tj"
                         onClick={() => {
                           const url = `https://tooljet.com/?utm_source=powered_by_banner&utm_medium=${
@@ -1002,7 +1002,7 @@ class ViewerComponent extends React.Component {
                           <TooljetLogoIcon />
                         </span>
                         <TooljetLogoText fill={this.props.darkMode ? '#ECEDEE' : '#11181C'} />
-                      </div>
+                      </div> */}
                       {/* Following div is a hack to prevent showing mobile drawer navigation coming from left*/}
                       {isMobilePreviewMode && <div className="hide-drawer-transition" style={{ right: 0 }}></div>}
                       {isMobilePreviewMode && <div className="hide-drawer-transition" style={{ left: 0 }}></div>}
