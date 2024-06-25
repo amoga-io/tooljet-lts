@@ -95,6 +95,7 @@ async function bootstrap() {
           'cdn.jsdelivr.net',
           'https://esm.sh',
           'www.googletagmanager.com',
+          'https://www.youtube.com',
         ],
         'default-src': [
           'maps.googleapis.com',
@@ -105,6 +106,7 @@ async function bootstrap() {
           "'self'",
           'blob:',
           'www.googletagmanager.com',
+          'https://www.youtube.com',
         ],
         'connect-src': ['ws://' + domain, "'self'", '*'],
         'frame-ancestors': ['*'],

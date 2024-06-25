@@ -10,6 +10,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import Backend from 'i18next-http-backend';
+import * as serviceWorkerRegistration from './sw/register';
 
 // const AppWithProfiler = Sentry.withProfiler(App);
 
@@ -85,3 +86,5 @@ appService
 //   })
 //   .then(() => render(<AppWithProfiler />, document.getElementById('app')));
 // .then(() => createRoot(document.getElementById('app')).render(<AppWithProfiler />));
+
+serviceWorkerRegistration.register();

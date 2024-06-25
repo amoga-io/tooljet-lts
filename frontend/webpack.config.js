@@ -7,6 +7,7 @@ require('dotenv').config({ path: '../.env' });
 const hash = require('string-hash');
 // const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 const fs = require('fs');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const versionPath = path.resolve(__dirname, '.version');
@@ -40,7 +41,19 @@ const plugins = [
     'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
     'process.env.SERVE_CLIENT': JSON.stringify(process.env.SERVE_CLIENT),
   }),
-  new BundleAnalyzerPlugin()
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static', // Generates a static HTML file with the report
+    reportFilename: 'bundle-report.html', // Name of the report file
+    openAnalyzer: false, // Automatically open the report in your default browser
+    generateStatsFile: true, // Generate a stats.json file
+    statsFilename: 'bundle-stats.json', // Name of the stats file
+    logLevel: 'info', // Log level (default: 'info')
+  }),
+  new WorkboxPlugin.InjectManifest({
+    swSrc: './src/sw/index.jsx', // Path to your service worker file
+    swDest: 'sw.js', // Destination filename in the build output
+    exclude: [/\.map$/, /asset-manifest\.json$/], // Optionally, exclude maps and manifest
+  }),
 
 ];
 
