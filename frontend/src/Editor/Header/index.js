@@ -6,7 +6,7 @@ import { AppVersionsManager } from '@/Editor/AppVersionsManager/AppVersionsManag
 import cx from 'classnames';
 import config from 'config';
 // eslint-disable-next-line import/no-unresolved
-import { useUpdatePresence } from '@y-presence/react';
+// import { useUpdatePresence } from '@y-presence/react';
 import { useAppVersionStore } from '@/_stores/appVersionStore';
 import { useCurrentStateStore } from '@/_stores/currentStateStore';
 import { shallow } from 'zustand/shallow';
@@ -49,22 +49,22 @@ export default function EditorHeader({
     shallow
   );
 
-  const updatePresence = useUpdatePresence();
+  // const updatePresence = useUpdatePresence();
 
-  useEffect(() => {
-    const initialPresence = {
-      firstName: currentUser?.first_name ?? '',
-      lastName: currentUser?.last_name ?? '',
-      email: currentUser?.email ?? '',
-      image: '',
-      editingVersionId: '',
-      x: 0,
-      y: 0,
-      color: '',
-    };
-    updatePresence(initialPresence);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser]);
+  // useEffect(() => {
+  //   const initialPresence = {
+  //     firstName: currentUser?.first_name ?? '',
+  //     lastName: currentUser?.last_name ?? '',
+  //     email: currentUser?.email ?? '',
+  //     image: '',
+  //     editingVersionId: '',
+  //     x: 0,
+  //     y: 0,
+  //     color: '',
+  //   };
+  //   updatePresence(initialPresence);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentUser]);
 
   useEffect(() => {
     const previewQuery = queryString.stringify({ version: editingVersion.name });

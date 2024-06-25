@@ -1,5 +1,6 @@
 import React from 'react';
-import { render } from 'react-dom';
+// import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 // import * as Sentry from '@sentry/react';
 // import { useLocation, useNavigationType, createRoutesFromChildren, matchRoutes } from 'react-router-dom';
@@ -33,7 +34,7 @@ appService
         },
       });
   })
-  .then(() => render(<App />, document.getElementById('app')));
+  .then(() => createRoot(document.getElementById('app')).render(<App />));
 
 // appService
 //   .getConfig()
