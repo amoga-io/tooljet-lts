@@ -8,6 +8,8 @@ const hash = require('string-hash');
 // const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 const fs = require('fs');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const BuildTimePlugin = require('./src/sw/build-time-plugin'); // Import the custom plugin
+
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const versionPath = path.resolve(__dirname, '.version');
@@ -54,6 +56,7 @@ const plugins = [
     swDest: 'sw.js', // Destination filename in the build output
     exclude: [/\.map$/, /asset-manifest\.json$/], // Optionally, exclude maps and manifest
   }),
+  new BuildTimePlugin(), // Add the custom plugin here
 
 ];
 
