@@ -2,7 +2,7 @@ import { useResolveStore } from '@/_stores/resolverStore';
 import _ from 'lodash';
 
 export function validateMultilineCode(code) {
-  const reservedKeyword = ['app', 'window', 'this']; // Case-sensitive reserved keywords
+  const reservedKeyword = ['app', 'this']; // Case-sensitive reserved keywords
   const keywordRegex = new RegExp(`\\b(${reservedKeyword.join('|')})\\b`, 'i');
   let inString = false;
   let inComment = false;

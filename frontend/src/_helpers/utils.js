@@ -13,7 +13,7 @@ import { getDateTimeFormat } from '@/Editor/Components/Table/Datepicker';
 import { useDataQueriesStore } from '@/_stores/dataQueriesStore';
 import { validateMultilineCode } from './utility';
 
-const reservedKeyword = ['app', 'window'];
+const reservedKeyword = ['app'];
 
 export function findProp(obj, prop, defval) {
   if (typeof defval === 'undefined') defval = null;
@@ -174,7 +174,7 @@ export function resolveReferences(
         if ((object.match(/{{/g) || []).length === 1) {
           const code = object.replace('{{', '').replace('}}', '');
 
-          const _reservedKeyword = ['app', 'window', 'this']; // Case-sensitive reserved keywords
+          const _reservedKeyword = ['app', 'this']; // Case-sensitive reserved keywords
           const keywordRegex = new RegExp(`\\b(${_reservedKeyword.join('|')})\\b`, 'i');
 
           if (code.match(keywordRegex)) {
