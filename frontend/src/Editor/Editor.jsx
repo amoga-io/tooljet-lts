@@ -287,7 +287,6 @@ const EditorComponent = (props) => {
     if (didAppDefinitionChanged) {
       prevAppDefinition.current = appDefinition;
     }
-
     if (mounted && didAppDefinitionChanged && currentPageId) {
       const components = appDefinition?.pages[currentPageId]?.components || {};
 
@@ -295,7 +294,7 @@ const EditorComponent = (props) => {
 
       if (appDiffOptions?.skipAutoSave === true || appDiffOptions?.entityReferenceUpdated === true) return;
 
-      handleLowPriorityWork(() => autoSave());
+      handleLowPriorityWork(() => autoSave(), 100);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify({ appDefinition, currentPageId, dataQueries })]);
@@ -365,12 +364,14 @@ const EditorComponent = (props) => {
       if (isPageSwitched) {
         const currentStateObj = useCurrentStateStore.getState();
 
-        useResolveStore.getState().actions.addAppSuggestions({
-          queries: currentStateObj.queries,
-          components: currentStateObj.components,
-          page: currentStateObj.page,
+        handleLowPriorityWork(() => {
+          useResolveStore.getState().actions.addAppSuggestions({
+            queries: currentStateObj.queries,
+            components: currentStateObj.components,
+            page: currentStateObj.page,
+          });
+          useResolveStore.getState().actions.pageSwitched(false);
         });
-        useResolveStore.getState().actions.pageSwitched(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
