@@ -26,7 +26,7 @@ if (workbox) {
   // Runtime caching for JavaScript files
   routing.registerRoute(
     ({ request }) => request.destination === 'script',
-    new strategies.StaleWhileRevalidate({
+    new strategies.CacheFirst({
       cacheName: 'js-runtime-cache',
     })
   );
@@ -34,7 +34,7 @@ if (workbox) {
   // Cache CSS files with a Stale-While-Revalidate strategy
   routing.registerRoute(
     ({ request }) => request.destination === 'style',
-    new strategies.StaleWhileRevalidate({
+    new strategies.CacheFirst({
       cacheName: 'static-resources-v2',
     })
   );
