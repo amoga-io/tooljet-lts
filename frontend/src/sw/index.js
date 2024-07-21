@@ -82,10 +82,10 @@ if (workbox) {
     '/api/config',
   ];
 
-  // Cache API responses
+  // Cache API responses with a Cache-First strategy
   routing.registerRoute(
     ({ url }) => apiWhitelist.some((endpoint) => url.pathname.startsWith(endpoint)),
-    new strategies.NetworkFirst({
+    new strategies.CacheFirst({
       cacheName: 'api-cache',
       plugins: [
         new expiration.ExpirationPlugin({
