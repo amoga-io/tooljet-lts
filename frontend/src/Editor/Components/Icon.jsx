@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line import/no-unresolved
-import * as Icons from '@tabler/icons-react';
+// import * as Icons from '@tabler/icons-react';
 import cx from 'classnames';
 
 export const Icon = ({
@@ -18,7 +18,7 @@ export const Icon = ({
   const { icon } = properties;
   const { iconColor, visibility, boxShadow } = styles;
   // eslint-disable-next-line import/namespace
-  const IconElement = Icons[icon];
+  // const IconElement = Icons[icon];
   const { definition } = component;
   const { events = [] } = definition;
 
@@ -49,7 +49,7 @@ export const Icon = ({
       className={cx('icon-widget', { 'd-none': !showIcon }, { 'cursor-pointer': events.length > 0 })}
       data-cy={dataCy}
     >
-      <IconElement
+      {/* <IconElement
         color={color}
         style={{ width, height, boxShadow, color: iconColor }}
         onClick={(event) => {
@@ -61,7 +61,7 @@ export const Icon = ({
           fireEvent('onHover');
         }}
         stroke={1.5}
-      />
+      /> */}
     </div>
   );
 };

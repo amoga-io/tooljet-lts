@@ -1,4 +1,4 @@
-import jsPDF from 'jspdf';
+// import jsPDF from 'jspdf';
 export default function generateFile(filename, data, fileType) {
   if (fileType === 'pdf') {
     generatePDF(filename, data);
@@ -21,49 +21,41 @@ export default function generateFile(filename, data, fileType) {
   }
 }
 function generatePDF(filename, data) {
-  const doc = new jsPDF();
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const margin = 10;
-  const x = margin;
-  let y = margin;
-
-  const processValue = (value = 0) => {
-    const valueType = typeof value;
-
-    if (valueType === 'string') {
-      doc.text(value, x, y, {
-        align: 'left',
-        maxWidth: pageWidth - 2 * margin,
-      });
-      y += 10;
-    } else if (Array.isArray(value)) {
-      const columnNames = Object.keys(value[0]);
-
-      // Print table headers
-      doc.autoTable({
-        startY: y,
-        head: [columnNames],
-        body: value.map((item) => Object.values(item)),
-      });
-
-      y = doc.autoTable.previous.finalY + 10;
-    } else if (valueType === 'object' && value !== null) {
-      const columnNames = Object.keys(value);
-
-      // Print table headers
-      doc.autoTable({
-        startY: y,
-        head: [columnNames],
-        body: [Object.values(value)],
-      });
-
-      y = doc.autoTable.previous.finalY + 10;
-    } else {
-      throw new Error('Invalid data type. Expected string, object, or array.');
-    }
-  };
-
-  processValue(data);
-
-  doc.save(filename);
+  // const doc = new jsPDF();
+  // const pageWidth = doc.internal.pageSize.getWidth();
+  // const margin = 10;
+  // const x = margin;
+  // let y = margin;
+  // const processValue = (value = 0) => {
+  //   const valueType = typeof value;
+  //   if (valueType === 'string') {
+  //     doc.text(value, x, y, {
+  //       align: 'left',
+  //       maxWidth: pageWidth - 2 * margin,
+  //     });
+  //     y += 10;
+  //   } else if (Array.isArray(value)) {
+  //     const columnNames = Object.keys(value[0]);
+  //     // Print table headers
+  //     doc.autoTable({
+  //       startY: y,
+  //       head: [columnNames],
+  //       body: value.map((item) => Object.values(item)),
+  //     });
+  //     y = doc.autoTable.previous.finalY + 10;
+  //   } else if (valueType === 'object' && value !== null) {
+  //     const columnNames = Object.keys(value);
+  //     // Print table headers
+  //     doc.autoTable({
+  //       startY: y,
+  //       head: [columnNames],
+  //       body: [Object.values(value)],
+  //     });
+  //     y = doc.autoTable.previous.finalY + 10;
+  //   } else {
+  //     throw new Error('Invalid data type. Expected string, object, or array.');
+  //   }
+  // };
+  // processValue(data);
+  // doc.save(filename);
 }

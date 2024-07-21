@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 // eslint-disable-next-line import/no-unresolved
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+// import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+// import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { debounce } from 'lodash';
 
 export const PDF = React.memo(({ styles, properties, width, height, component, dataCy }) => {
@@ -51,11 +51,11 @@ export const PDF = React.memo(({ styles, properties, width, height, component, d
   };
 
   useEffect(() => {
-    if (numPages === 0 || numPages === null) return;
-    const observer = new IntersectionObserver(trackIntersection, options);
-    document.querySelectorAll('.react-pdf__Page').forEach((elem) => {
-      if (elem) observer.observe(elem);
-    });
+    // if (numPages === 0 || numPages === null) return;
+    // const observer = new IntersectionObserver(trackIntersection, options);
+    // document.querySelectorAll('.react-pdf__Page').forEach((elem) => {
+    //   if (elem) observer.observe(elem);
+    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numPages, options]);
 
@@ -82,22 +82,23 @@ export const PDF = React.memo(({ styles, properties, width, height, component, d
     height: '15px',
   };
   const renderPDF = () => (
-    <Document
-      file={url}
-      onLoadSuccess={onDocumentLoadSuccess}
-      onLoadError={onDocumentLoadError}
-      className="pdf-document"
-    >
-      {Array.from(new Array(numPages), (el, index) => (
-        <Page
-          pageNumber={index + 1}
-          width={scale ? width - 12 : undefined}
-          height={scale ? undefined : height}
-          key={`page_${index + 1}`}
-          inputRef={(el) => (pageRef.current[index] = el)}
-        />
-      ))}
-    </Document>
+    <></>
+    // <Document
+    //   file={url}
+    //   onLoadSuccess={onDocumentLoadSuccess}
+    //   onLoadError={onDocumentLoadError}
+    //   className="pdf-document"
+    // >
+    //   {Array.from(new Array(numPages), (el, index) => (
+    //     <Page
+    //       pageNumber={index + 1}
+    //       width={scale ? width - 12 : undefined}
+    //       height={scale ? undefined : height}
+    //       key={`page_${index + 1}`}
+    //       inputRef={(el) => (pageRef.current[index] = el)}
+    //     />
+    //   ))}
+    // </Document>
   );
 
   async function downloadFile(url, pdfName) {

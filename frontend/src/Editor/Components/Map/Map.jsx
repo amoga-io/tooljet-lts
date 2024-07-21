@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useCallback, useEffect } from 'react';
-import { GoogleMap, LoadScript, Marker, Autocomplete, Polygon } from '@react-google-maps/api';
+// import { GoogleMap, LoadScript, Marker, Autocomplete, Polygon } from '@react-google-maps/api';
 import { resolveWidgetFieldValue } from '@/_helpers/utils';
 import { darkModeStyles } from './styles';
 import { useTranslation } from 'react-i18next';
@@ -149,7 +149,7 @@ export const Map = function Map({
       >
         <img className="mx-2" src="assets/images/icons/marker.svg" width="24" height="64" />
       </div>
-      <LoadScript googleMapsApiKey={window.public_config.GOOGLE_MAPS_API_KEY} libraries={['places']}>
+      {/* <LoadScript googleMapsApiKey={window.public_config.GOOGLE_MAPS_API_KEY} libraries={['places']}>
         <GoogleMap
           center={mapCenter}
           mapContainerStyle={containerStyle}
@@ -196,7 +196,7 @@ export const Map = function Map({
             />
           )}
         </GoogleMap>
-      </LoadScript>
+      </LoadScript> */}
     </div>
   );
 };

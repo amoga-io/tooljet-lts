@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './numberinput.scss';
 import SolidIcon from '@/_ui/Icon/SolidIcons';
-import * as Icons from '@tabler/icons-react';
+// import * as Icons from '@tabler/icons-react';
 import Loader from '@/ToolJetUI/Loader/Loader';
 import { resolveWidgetFieldValue } from '@/_helpers/utils';
 
@@ -191,7 +191,7 @@ export const NumberInput = function NumberInput({
 
   const iconName = styles.icon; // Replace with the name of the icon you want
   // eslint-disable-next-line import/namespace
-  const IconElement = Icons[iconName] == undefined ? Icons['IconHome2'] : Icons[iconName];
+  // const IconElement = Icons[iconName] == undefined ? Icons['IconHome2'] : Icons[iconName];
   // eslint-disable-next-line import/namespace
 
   const handleChange = (e) => {
@@ -316,7 +316,7 @@ export const NumberInput = function NumberInput({
             _width={_width}
             labelWidth={labelWidth}
           />
-          {component?.definition?.styles?.iconVisibility?.value && !isResizing && (
+          {/* {component?.definition?.styles?.iconVisibility?.value && !isResizing && (
             <IconElement
               data-cy={'text-input-icon'}
               style={{
@@ -344,7 +344,7 @@ export const NumberInput = function NumberInput({
               }}
               stroke={1.5}
             />
-          )}
+          )} */}
           <input
             ref={inputRef}
             disabled={disable || loading}
