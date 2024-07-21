@@ -23,19 +23,37 @@ if (workbox) {
   // Precache and route the files
   precaching.precacheAndRoute(self.__WB_MANIFEST || []);
 
-  // Runtime caching for JavaScript files
+  // Runtime caching for JavaScript files with a Cache-First strategy
   routing.registerRoute(
     ({ request }) => request.destination === 'script',
     new strategies.CacheFirst({
       cacheName: 'js-runtime-cache',
+      plugins: [
+        new expiration.ExpirationPlugin({
+          maxEntries: 50, // Adjust the number of cached JS files
+          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+        }),
+        new cacheableResponse.CacheableResponsePlugin({
+          statuses: [0, 200],
+        }),
+      ],
     })
   );
 
-  // Cache CSS files with a Stale-While-Revalidate strategy
+  // Cache CSS files with a Cache-First strategy
   routing.registerRoute(
     ({ request }) => request.destination === 'style',
     new strategies.CacheFirst({
-      cacheName: 'static-resources-v2',
+      cacheName: 'css-runtime-cache',
+      plugins: [
+        new expiration.ExpirationPlugin({
+          maxEntries: 50, // Adjust the number of cached CSS files
+          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+        }),
+        new cacheableResponse.CacheableResponsePlugin({
+          statuses: [0, 200],
+        }),
+      ],
     })
   );
 
