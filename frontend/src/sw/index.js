@@ -98,7 +98,6 @@ if (workbox) {
     '/api/metadata',
     '/assets/translations/en.json',
     '/api/config',
-    '/api/session',
     '/api/v2/data_sources',
     '/api/organization-variables',
   ];
