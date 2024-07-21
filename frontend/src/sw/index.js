@@ -73,6 +73,32 @@ if (workbox) {
     })
   );
 
+  // Whitelist array for API endpoints
+  const apiWhitelist = [
+    '/api/organization-constants',
+    '/api/app-environments/init',
+    '/api/metadata',
+    '/assets/translations/en.json',
+    '/api/config',
+  ];
+
+  // Cache API responses
+  routing.registerRoute(
+    ({ url }) => apiWhitelist.some((endpoint) => url.pathname.startsWith(endpoint)),
+    new strategies.NetworkFirst({
+      cacheName: 'api-cache',
+      plugins: [
+        new expiration.ExpirationPlugin({
+          maxEntries: 50, // Adjust the number of API responses cached to 50
+          maxAgeSeconds: 5 * 60, // Cache for 5 minutes
+        }),
+        new cacheableResponse.CacheableResponsePlugin({
+          statuses: [0, 200],
+        }),
+      ],
+    })
+  );
+
   // Force the waiting service worker to become the active service worker
   self.addEventListener('install', (event) => {
     event.waitUntil(self.skipWaiting());
