@@ -27,7 +27,7 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'script',
     new strategies.CacheFirst({
-      cacheName: 'js-runtime-cache',
+      cacheName: 'js-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 50, // Adjust the number of cached JS files
@@ -44,7 +44,7 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'style',
     new strategies.CacheFirst({
-      cacheName: 'css-runtime-cache',
+      cacheName: 'css-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 50, // Adjust the number of cached CSS files
@@ -61,11 +61,11 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'image',
     new strategies.CacheFirst({
-      cacheName: 'image-cache-v2',
+      cacheName: 'image-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 60, // Adjust the number of images cached to 60
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+          maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
         }),
         new cacheableResponse.CacheableResponsePlugin({
           statuses: [0, 200],
@@ -78,11 +78,11 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'image' && request.url.endsWith('.svg'),
     new strategies.CacheFirst({
-      cacheName: 'svg-cache-v1',
+      cacheName: 'svg-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 60, // Adjust the number of SVGs cached to 60
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+          maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
         }),
         new cacheableResponse.CacheableResponsePlugin({
           statuses: [0, 200],
