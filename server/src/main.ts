@@ -99,6 +99,7 @@ async function bootstrap() {
           '*.amoga.io',
           '*.amoga.app',
           '*.amoga.workers.dev',
+          'stirling.amoga.io',
         ],
         'default-src': [
           'maps.googleapis.com',
@@ -113,6 +114,7 @@ async function bootstrap() {
           '*.amoga.io',
           '*.amoga.app',
           '*.amoga.workers.dev',
+          'stirling.amoga.io',
         ],
         'connect-src': ['ws://' + domain, "'self'", '*', '*.amoga.io', '*.amoga.app', '*.amoga.workers.dev'],
         'frame-ancestors': ['*'],
