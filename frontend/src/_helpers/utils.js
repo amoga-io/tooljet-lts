@@ -13,7 +13,7 @@ import { getDateTimeFormat } from '@/Editor/Components/Table/Datepicker';
 import { useDataQueriesStore } from '@/_stores/dataQueriesStore';
 import { validateMultilineCode } from './utility';
 
-const reservedKeyword = ['app'];
+const reservedKeyword = [];
 
 export function findProp(obj, prop, defval) {
   if (typeof defval === 'undefined') defval = null;
