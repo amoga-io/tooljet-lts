@@ -20,8 +20,11 @@ if (workbox) {
     runtime: 'canvas-runtime',
   });
 
-  // Precache and route the files
-  precaching.precacheAndRoute(self.__WB_MANIFEST || []);
+  // Filter out files with .woff, .woff2, .png, .jpg, and .svg extensions using a regular expression
+  const filteredManifest = (self.__WB_MANIFEST || []).filter(({ url }) => !url.match(/\.(woff2?|png|jpe?g|svg)$/));
+
+  // Precache and route the filtered files
+  precaching.precacheAndRoute(filteredManifest);
 
   // Runtime caching for JavaScript files with a Cache-First strategy
   routing.registerRoute(
