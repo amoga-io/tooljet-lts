@@ -944,8 +944,8 @@ export const generateAppActions = (_ref, queryId, mode, isPreview = false) => {
 
 export const loadPyodide = async () => {
   try {
-    const pyodide = await window.loadPyodide({ indexURL: '/assets/libs/pyodide-0.23.2/' });
-    return pyodide;
+    // const pyodide = await window.loadPyodide({ indexURL: '/assets/libs/pyodide-0.23.2/' });
+    // return pyodide;
   } catch (error) {
     console.log('loadPyodide error', error);
     throw 'Could not load Pyodide to execute Python';
