@@ -829,6 +829,8 @@ class ViewerComponent extends React.Component {
         .sort((a, b) => a.index - b.index) || [];
 
     const isMobilePreviewMode = this.props.versionId && this.props.currentLayout === 'mobile';
+    const currentDeviceWidth = window.innerWidth - 5 + 'px';
+
     if (this.state.app?.isLoading) {
       return (
         <div className={cx('tooljet-logo-loader', { 'theme-dark': this.props.darkMode })}>
@@ -931,14 +933,15 @@ class ViewerComponent extends React.Component {
                       <div
                         className="canvas-area"
                         style={{
-                          width: isMobilePreviewMode ? '450px' : currentCanvasWidth,
-                          maxWidth: isMobilePreviewMode ? '450px' : canvasMaxWidth,
+                          width: isMobilePreviewMode ? currentDeviceWidth : currentCanvasWidth,
+                          maxWidth: isMobilePreviewMode ? currentDeviceWidth : canvasMaxWidth,
                           backgroundColor: this.computeCanvasBackgroundColor(),
                           margin: 0,
                           padding: 0,
+                          overflowX: 'hidden',
                         }}
                       >
-                        {this.props.currentLayout === 'mobile' && isMobilePreviewMode && (
+                        {/* {this.props.currentLayout === 'mobile' && isMobilePreviewMode && (
                           <MobileHeader
                             showHeader={!appDefinition.globalSettings?.hideHeader && isAppLoaded}
                             appName={this.state.app?.name ?? null}
@@ -950,7 +953,7 @@ class ViewerComponent extends React.Component {
                             setAppDefinitionFromVersion={this.setAppDefinitionFromVersion}
                             showViewerNavigation={appDefinition?.showViewerNavigation}
                           />
-                        )}
+                        )} */}
                         {defaultComponentStateComputed && (
                           <>
                             {isLoading ? (
@@ -967,7 +970,7 @@ class ViewerComponent extends React.Component {
                                 appLoading={isLoading}
                                 onEvent={this.handleEvent}
                                 mode="view"
-                                deviceWindowWidth={isMobilePreviewMode ? '450px' : deviceWindowWidth}
+                                deviceWindowWidth={isMobilePreviewMode ? currentDeviceWidth : deviceWindowWidth}
                                 selectedComponent={this.state.selectedComponent}
                                 onComponentClick={(id, component) => {
                                   this.setState({
