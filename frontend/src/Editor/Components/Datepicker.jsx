@@ -23,7 +23,7 @@ export const Datepicker = function Datepicker({
 
   const [date, setDate] = useState(null);
   const [excludedDates, setExcludedDates] = useState([]);
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(true);
 
   const selectedDateFormat = enableTime ? `${format} LT` : format;
 
@@ -105,6 +105,7 @@ export const Datepicker = function Datepicker({
         showMonthDropdown
         showYearDropdown
         dropdownMode="select"
+        portalId="my-popper"
         excludeDates={excludedDates}
         customInput={<input style={{ borderRadius: `${borderRadius}px`, boxShadow, height }} />}
         timeInputLabel={<div className={`${darkMode && 'theme-dark'}`}>Time</div>}

@@ -43,7 +43,7 @@ export const PasswordInput = function PasswordInput({
   const [passwordValue, setPasswordValue] = useState(properties.value);
   const [visibility, setVisibility] = useState(properties.visibility);
   const { isValid, validationError } = validate(passwordValue);
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(true);
 
   const isMandatory = resolveWidgetFieldValue(component?.definition?.validation?.mandatory?.value);
   const [labelWidth, setLabelWidth] = useState(0);

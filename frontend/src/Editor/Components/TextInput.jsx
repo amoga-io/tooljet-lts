@@ -45,7 +45,7 @@ export const TextInput = function TextInput({
   const [value, setValue] = useState(properties.value);
   const [visibility, setVisibility] = useState(properties.visibility);
   const { isValid, validationError } = validate(value);
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(true);
 
   const isMandatory = resolveWidgetFieldValue(component?.definition?.validation?.mandatory?.value);
   const [labelWidth, setLabelWidth] = useState(0);
@@ -356,7 +356,7 @@ export const TextInput = function TextInput({
           data-cy={`${String(component.name).toLowerCase()}-invalid-feedback`}
           style={{
             color: errTextColor,
-            textAlign: direction == 'left' && 'end',
+            textAlign: 'left',
             fontSize: '11px',
             fontWeight: '400',
             lineHeight: '16px',
