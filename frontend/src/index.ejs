@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <% if (process.env.NODE_ENV==='production' && process.env.SERVE_CLIENT !=='false' ) { %>
+  <% if (process.env.NODE_ENV === 'production' && process.env.SERVE_CLIENT !== 'false') { %>
   <base href="__REPLACE_SUB_PATH__" />
   <% } else { %>
   <base href="/" />
@@ -57,68 +57,17 @@
       to {
         opacity: 0.2;
         transform: translateY(-20px);
-
       }
-    }
-
-    /* roboto-100 - latin */
-    @font-face {
-      font-display: swap;
-      /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 100;
-      src: url('/assets/fonts/roboto-v30-latin/roboto-v30-latin-100.woff2') format('woff2');
-      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-    }
-
-    /* roboto-300 - latin */
-    @font-face {
-      font-display: swap;
-      /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 300;
-      src: url('/assets/fonts/roboto-v30-latin/roboto-v30-latin-300.woff2') format('woff2');
-      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-    }
-
-    /* roboto-regular - latin */
-    @font-face {
-      font-display: swap;
-      /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 400;
-      src: url('/assets/fonts/roboto-v30-latin/roboto-v30-latin-regular.woff2') format('woff2');
-      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-    }
-
-    /* roboto-500 - latin */
-    @font-face {
-      font-display: swap;
-      /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 500;
-      src: url('/assets/fonts/roboto-v30-latin/roboto-v30-latin-500.woff2') format('woff2');
-      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-    }
-
-    /* source-code-pro-regular - latin */
-    @font-face {
-      font-display: swap;
-      /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-      font-family: 'Source Code Pro';
-      font-style: normal;
-      font-weight: 400;
-      src: url('/assets/fonts/source-code-pro-v22-latin/source-code-pro-v22-latin-regular.woff2') format('woff2');
-      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
     }
   </style>
 
+  <!-- Load Google Fonts with optimized display parameter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&family=Source+Code+Pro&display=swap" rel="stylesheet">
+
   <link rel="icon" href="assets/images/logo.svg" sizes="any" type="image/svg+xml" />
-  <script src="assets/libs/pyodide-0.23.2/pyodide.js"></script>
+  <!-- <script src="assets/libs/pyodide-0.23.2/pyodide.js"></script> -->
 </head>
 
 <body>

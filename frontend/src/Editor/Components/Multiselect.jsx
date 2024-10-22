@@ -1,17 +1,19 @@
 import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
-import { MultiSelect } from 'react-multi-select-component';
+// import { MultiSelect } from 'react-multi-select-component';
+import Select from 'react-select';
 
-const ItemRenderer = ({ checked, option, onClick, disabled }) => (
-  <div className={`item-renderer ${disabled && 'disabled'}`}>
-    <input type="checkbox" onClick={onClick} checked={checked} tabIndex={-1} disabled={disabled} />
-    <span>{option.label}</span>
-  </div>
-);
+// const ItemRenderer = ({ checked, option, onClick, disabled }) => (
+//   <div className={`item-renderer ${disabled && 'disabled'}`}>
+//     <input type="checkbox" onClick={onClick} checked={checked} tabIndex={-1} disabled={disabled} />
+//     <span>{option.label}</span>
+//   </div>
+// );
 
 export const Multiselect = function Multiselect({
   id,
   component,
+  validate,
   height,
   properties,
   styles,
@@ -23,14 +25,22 @@ export const Multiselect = function Multiselect({
   fireEvent,
   dataCy,
 }) {
-  const { label, value, values, display_values, showAllOption } = properties;
-  const { borderRadius, visibility, disabledState, boxShadow } = styles;
+  const { label, value, values, display_values } = properties;
+  const { borderRadius, visibility, disabledState, boxShadow, justifyContent } = styles;
   const [selected, setSelected] = useState([]);
   const [searched, setSearched] = useState('');
+  const validationData = validate(value);
+  const { isValid, validationError } = validationData;
+
+  const selectAllOption = {
+    value: '<SELECT_ALL>',
+    label: 'Select All',
+  };
 
   let selectOptions = [];
   try {
     selectOptions = [
+      selectAllOption,
       ...values.map((value, index) => {
         return { label: display_values[index], value: value };
       }),
@@ -67,13 +77,39 @@ export const Multiselect = function Multiselect({
   }, []);
 
   const onChangeHandler = (items) => {
-    setSelected(items);
-    setExposedVariable(
-      'values',
-      items.map((item) => item.value)
-    );
+    // Check if "Select All" was selected
+    const isSelectAllSelected = items.some((item) => item.value === selectAllOption.value);
+
+    if (isSelectAllSelected) {
+      if (selected.length === selectOptions.length - 1) {
+        // Deselect all options
+        setSelected([]);
+        setExposedVariable('values', []);
+      } else {
+        // Select all options
+        const allOptionsExceptSelectAll = selectOptions.filter((option) => option.value !== selectAllOption.value);
+        setSelected(allOptionsExceptSelectAll);
+        setExposedVariable(
+          'values',
+          allOptionsExceptSelectAll.map((item) => item.value)
+        );
+      }
+    } else {
+      // Normal behavior for selecting/deselecting individual items
+      setSelected(items);
+      setExposedVariable(
+        'values',
+        items.map((item) => item.value)
+      );
+    }
+
     fireEvent('onSelect');
   };
+
+  useEffect(() => {
+    setExposedVariable('isValid', isValid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isValid]);
 
   useEffect(() => {
     const exposedVariables = {
@@ -129,40 +165,107 @@ export const Multiselect = function Multiselect({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected, setSelected]);
 
-  const filterOptions = (options, filter) => {
-    setSearched(filter);
+  // const filterOptions = (options, filter) => {
+  //   setSearched(filter);
 
-    if (searched !== filter) {
-      setExposedVariable('searchText', filter);
-      fireEvent('onSearchTextChanged');
-    }
-    if (!filter) return options;
+  //   if (searched !== filter) {
+  //     setExposedVariable('searchText', filter);
+  //     fireEvent('onSearchTextChanged');
+  //   }
+  //   if (!filter) return options;
 
-    return options.filter(
-      ({ label, value }) => label != null && value != null && label.toLowerCase().includes(filter.toLowerCase())
-    );
+  //   return options.filter(
+  //     ({ label, value }) => label != null && value != null && label.toLowerCase().includes(filter.toLowerCase())
+  //   );
+  // };
+
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      background: darkMode ? 'rgb(31,40,55)' : 'white',
+      minHeight: height,
+      height: height,
+      boxShadow: state.isFocused ? boxShadow : boxShadow,
+      borderRadius: Number.parseFloat(borderRadius),
+    }),
+    valueContainer: (provided, _state) => ({
+      ...provided,
+      height: height,
+      padding: '0 6px',
+      justifyContent,
+    }),
+    input: (provided, _state) => ({
+      ...provided,
+      color: darkMode ? 'white' : 'black',
+      margin: '0px',
+    }),
+    indicatorSeparator: (_state) => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, _state) => ({
+      ...provided,
+      height: height,
+    }),
+    option: (provided, state) => {
+      const isSelected = state.isSelected;
+      console.log({ isSelected, state });
+
+      const styles = darkMode
+        ? {
+            color: state.isDisabled ? '#88909698' : 'white',
+            backgroundColor: isSelected ? '#3650AF' : 'rgb(31,40,55)',
+            ':hover': {
+              backgroundColor: state.isDisabled ? 'transparent' : isSelected ? '#1F2E64' : '#323C4B',
+            },
+            maxWidth: 'auto',
+            minWidth: 'max-content',
+          }
+        : {
+            backgroundColor: '#7A95FB',
+            color: state.isDisabled ? '#88909694' : isSelected ? 'white' : 'black',
+            ':hover': {
+              backgroundColor: state.isDisabled ? 'transparent' : isSelected ? '#3650AF' : '#d8dce9',
+            },
+            maxWidth: 'auto',
+            minWidth: 'max-content',
+          };
+      return {
+        ...provided,
+        justifyContent,
+        height: 'auto',
+        display: 'flex',
+        flexDirection: 'rows',
+        alignItems: 'center',
+        ...styles,
+      };
+    },
+    menu: (provided, _state) => ({
+      ...provided,
+      backgroundColor: darkMode ? 'rgb(31,40,55)' : 'white',
+    }),
   };
 
   return (
-    <div
-      className="multiselect-widget row g-0"
-      data-cy={dataCy}
-      style={{ height, display: visibility ? '' : 'none' }}
-      onFocus={() => {
-        onComponentClick(this, id, component);
-      }}
-    >
-      <div className="col-auto my-auto d-flex align-items-center">
-        <label
-          style={{ marginRight: label ? '1rem' : '', marginBottom: 0 }}
-          className={`form-label py-1 ${darkMode ? 'text-light' : 'text-secondary'}`}
-          data-cy={`multiselect-label-${component.name.toLowerCase()}`}
-        >
-          {label}
-        </label>
-      </div>
-      <div className="col px-0 h-100" style={{ borderRadius: parseInt(borderRadius), boxShadow }}>
-        <MultiSelect
+    <>
+      <div
+        className="multiselect-widget row g-0"
+        data-cy={dataCy}
+        style={{ height, display: visibility ? '' : 'none' }}
+        onFocus={() => {
+          onComponentClick(this, id, component);
+        }}
+      >
+        <div className="col-auto my-auto d-flex align-items-center">
+          <label
+            style={{ marginRight: label ? '1rem' : '', marginBottom: 0 }}
+            className={`form-label py-1 ${darkMode ? 'text-light' : 'text-secondary'}`}
+            data-cy={`multiselect-label-${component.name.toLowerCase()}`}
+          >
+            {label}
+          </label>
+        </div>
+        <div className="col px-0 h-100" style={{ borderRadius: parseInt(borderRadius), boxShadow, zIndex: 9999999 }}>
+          {/* <MultiSelect
           hasSelectAll={showAllOption ?? false}
           options={selectOptions}
           value={selected}
@@ -173,8 +276,36 @@ export const Multiselect = function Multiselect({
           ItemRenderer={ItemRenderer}
           filterOptions={filterOptions}
           debounceDuration={0}
-        />
+          onMenuToggle={(isOpen) => {
+            console.log("isOpen", isOpen)
+            if (isOpen) {
+              document.querySelector(`.ele-${id}`).style.zIndex = 99999999;
+            } else {
+              document.querySelector(`.ele-${id}`).style.zIndex = '';
+            }
+          }}
+        /> */}
+          <Select
+            isDisabled={disabledState}
+            value={selected}
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
+            options={selectOptions}
+            // styles={customStyles}
+            isLoading={properties.loadingState}
+            // onInputChange={onSearchTextChange}
+            onFocus={(event) => onComponentClick(event, component, id)}
+            menuPortalTarget={document.body}
+            placeholder={'Select'}
+            isMulti={true}
+            closeMenuOnSelect={false}
+            isSearchable={true}
+            hideSelectedOptions={false}
+          />
+        </div>
       </div>
-    </div>
+      <div className={`invalid-feedback ${isValid ? '' : visibility ? 'd-flex' : 'none'}`}>{validationError || ''}</div>
+    </>
   );
 };

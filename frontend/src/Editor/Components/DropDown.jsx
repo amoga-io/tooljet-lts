@@ -20,10 +20,10 @@ export const DropDown = function DropDown({
   const { selectedTextColor, borderRadius, visibility, disabledState, justifyContent, boxShadow } = styles;
   const [currentValue, setCurrentValue] = useState(() => (advanced ? findDefaultItem(schema) : value));
   const { value: exposedValue } = exposedVariables;
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(true);
   const validationData = validate(value);
   const { isValid, validationError } = validationData;
-
+  console.log({ isValid, validationError });
   function findDefaultItem(schema) {
     const foundItem = schema?.find((item) => item?.default === true);
     return !hasVisibleFalse(foundItem?.value) ? foundItem?.value : undefined;
@@ -87,6 +87,7 @@ export const DropDown = function DropDown({
 
   useEffect(() => {
     setExposedVariable('isValid', isValid);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isValid]);
 

@@ -841,8 +841,8 @@ button {
 
     &:hover {
       background: none !important;
-      border: none !important;      
-      color: var(--slate12);       
+      border: none !important;
+      color: var(--slate12);
     }
   }
 }
@@ -2273,7 +2273,7 @@ body {
   .dropdown-content {
     display: none;
     position: absolute;
-    z-index: 2;
+    z-index: 99999 !important;
     width: 100%;
     align-items: center;
     border: 1px solid transparent;
@@ -3562,6 +3562,7 @@ input[type="text"] {
     align-items: center;
     border-radius: inherit;
   }
+
 
   .rmsc {
     height: 100%;
@@ -8707,7 +8708,7 @@ tbody {
   align-items: center;
   color: var(--slate11);
 
-  .with-border{
+  .with-border {
     border-bottom: 1px solid var(--slate5) !important;
   }
 
@@ -9911,6 +9912,7 @@ tbody {
       justify-content: center;
       align-items: center;
       margin-right: 12px;
+      position: relative;
     }
 
   }
@@ -10805,6 +10807,7 @@ tbody {
     top: 5px;
     cursor: pointer;
   }
+
   .copy-icon {
     position: absolute;
     right: 8px;
@@ -12920,6 +12923,7 @@ tbody {
 .wrapper-div-code-editor:hover .fx-button-container {
   opacity: 1;
 }
+
 .action-description-highlighter {
   color: var(--indigo9) !important;
 }
@@ -12950,7 +12954,8 @@ tbody {
       border: 1px solid var(--slate7);
       padding: 5px 5px;
       background-color: var(--base);
-      color: var(--slate12)
+      color: var(--slate12);
+      z-index: 999
     }
   }
 
@@ -13049,4 +13054,16 @@ tbody {
 
 div.ds-svg-container svg {
   padding: 2px;
+}
+
+#my-popper {
+  z-index: 1000 !important;
+}
+
+.react-datepicker-popper {
+  z-index: 1000 !important
+}
+
+.react-datepicker-wrapper {
+  width: 100%
 }

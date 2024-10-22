@@ -13,7 +13,7 @@ import { getDateTimeFormat } from '@/Editor/Components/Table/Datepicker';
 import { useDataQueriesStore } from '@/_stores/dataQueriesStore';
 import { validateMultilineCode } from './utility';
 
-const reservedKeyword = ['app'];
+const reservedKeyword = [];
 
 export function findProp(obj, prop, defval) {
   if (typeof defval === 'undefined') defval = null;
@@ -165,7 +165,11 @@ export function resolveReferences(
   const objectType = typeof object;
   let error;
 
-  const state = useCurrentStateStore.getState(); //!state=currentstate => The state passed down as an argument retains the previous state.
+  const state = _state ?? useCurrentStateStore.getState(); //!state=currentstate => The state passed down as an argument retains the previous state.
+
+  if (_state.parameters) {
+    state.parameters = { ..._state.parameters };
+  }
 
   switch (objectType) {
     case 'string': {
@@ -940,8 +944,8 @@ export const generateAppActions = (_ref, queryId, mode, isPreview = false) => {
 
 export const loadPyodide = async () => {
   try {
-    const pyodide = await window.loadPyodide({ indexURL: '/assets/libs/pyodide-0.23.2/' });
-    return pyodide;
+    // const pyodide = await window.loadPyodide({ indexURL: '/assets/libs/pyodide-0.23.2/' });
+    // return pyodide;
   } catch (error) {
     console.log('loadPyodide error', error);
     throw 'Could not load Pyodide to execute Python';

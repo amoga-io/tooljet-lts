@@ -44,7 +44,7 @@ export const NumberInput = function NumberInput({
 
   const [visibility, setVisibility] = useState(properties.visibility);
   const [loading, setLoading] = useState(loadingState);
-  const [showValidationError, setShowValidationError] = useState(false);
+  const [showValidationError, setShowValidationError] = useState(true);
   const [value, setValue] = React.useState(Number(parseFloat(properties.value).toFixed(properties.decimalPlaces)));
   const { isValid, validationError } = validate(value);
   const [isFocused, setIsFocused] = useState(false);

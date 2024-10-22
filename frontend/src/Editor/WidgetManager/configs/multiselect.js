@@ -11,6 +11,13 @@ export const multiselectConfig = {
     showOnDesktop: { type: 'toggle', displayName: 'Show on desktop' },
     showOnMobile: { type: 'toggle', displayName: 'Show on mobile' },
   },
+  validation: {
+    customRule: {
+      type: 'code',
+      displayName: 'Custom validation',
+      placeholder: `{{components.text2.text=='yes'&&'valid'}}`,
+    },
+  },
   actions: [
     {
       handle: 'selectOption',
@@ -112,6 +119,7 @@ export const multiselectConfig = {
   exposedVariables: {
     values: {},
     searchText: '',
+    isValid: false,
   },
   definition: {
     others: {

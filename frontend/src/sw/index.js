@@ -20,14 +20,17 @@ if (workbox) {
     runtime: 'canvas-runtime',
   });
 
-  // Precache and route the files
-  precaching.precacheAndRoute(self.__WB_MANIFEST || []);
+  // Filter out files with .woff, .woff2, .png, .jpg, and .svg extensions using a regular expression
+  const filteredManifest = (self.__WB_MANIFEST || []).filter(({ url }) => !url.match(/\.(woff2?|png|jpe?g|svg)$/));
+
+  // Precache and route the filtered files
+  precaching.precacheAndRoute(filteredManifest);
 
   // Runtime caching for JavaScript files with a Cache-First strategy
   routing.registerRoute(
     ({ request }) => request.destination === 'script',
     new strategies.CacheFirst({
-      cacheName: 'js-runtime-cache',
+      cacheName: 'js-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 50, // Adjust the number of cached JS files
@@ -44,7 +47,7 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'style',
     new strategies.CacheFirst({
-      cacheName: 'css-runtime-cache',
+      cacheName: 'css-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 50, // Adjust the number of cached CSS files
@@ -61,11 +64,11 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'image',
     new strategies.CacheFirst({
-      cacheName: 'image-cache-v2',
+      cacheName: 'image-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 60, // Adjust the number of images cached to 60
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+          maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
         }),
         new cacheableResponse.CacheableResponsePlugin({
           statuses: [0, 200],
@@ -78,11 +81,11 @@ if (workbox) {
   routing.registerRoute(
     ({ request }) => request.destination === 'image' && request.url.endsWith('.svg'),
     new strategies.CacheFirst({
-      cacheName: 'svg-cache-v1',
+      cacheName: 'svg-cache',
       plugins: [
         new expiration.ExpirationPlugin({
           maxEntries: 60, // Adjust the number of SVGs cached to 60
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+          maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
         }),
         new cacheableResponse.CacheableResponsePlugin({
           statuses: [0, 200],
@@ -98,7 +101,6 @@ if (workbox) {
     '/api/metadata',
     '/assets/translations/en.json',
     '/api/config',
-    '/api/session',
     '/api/v2/data_sources',
     '/api/organization-variables',
   ];
